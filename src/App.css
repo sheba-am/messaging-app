@@ -58,8 +58,72 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   top: 0%;
   bottom: 0%;
   
+  background: #E4B6FF;
+}
+
+/* profile header */
+.profile-header {
+  position: absolute;
+  height: 196px;
+  left: -0.03%;
+  right: -0.72%;
+  top: 0px;
+
   background: #CFA8FF;
 }
+
+/* Big profile picture */
+.big-profile-picture {
+  position: absolute;
+  width: 175px;
+  height: 175px;
+  left: calc(50% - 175px/2 + 2.4px);
+  top: 109px;
+  border-radius: 50%;
+  background: #C4C4C4;
+}
+
+/* Name */
+.profile-name {
+  position: absolute;
+  width: 218px;
+  height: 38px;
+  left: calc(50% - 218px/2 + 2.9px);
+  top: 322px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 35px;
+  text-align: center;
+
+  color: #050505;
+}
+
+/* delete button */
+.delete-button {
+  position: absolute;
+  height: 66.98px;
+  left: 8.7%;
+  right: 7%;
+  bottom: 26.02px;
+
+  background: #10002B;
+  border-radius: 25px;
+
+  color: white;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 28px;
+  text-align: center;
+  line-height: 35px;
+  text-align: center;
+  line-height: 66.98px;
+  ;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

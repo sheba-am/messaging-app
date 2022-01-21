@@ -2,7 +2,21 @@ import React, { Component } from 'react';
 class Profile extends Component{
     render(){
         return (
-            <p>Profile</p>
+            <div>
+                <p>Profile</p>
+                <div className='profile-header'>
+
+                </div>
+                <div className='big-profile-picture'>
+
+                </div>
+                <div className='profile-name'>
+                    saba
+                </div>
+                <div className='delete-button'>
+                    Delete
+                </div>
+            </div>
 
         );
     }
