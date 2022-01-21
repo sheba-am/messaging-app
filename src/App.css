@@ -27,7 +27,39 @@
 .App-link {
   color: #61dafb;
 }
+.chat-list {
+/* chat list */
 
+position: absolute;
+left: 0%;
+right: 70%;
+top: 0%;
+bottom: 0%;
+
+background: #10002B;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+}
+
+.chat-room {
+
+  position: absolute;
+  left: 30%;
+  right: 30%;
+  top: 0%;
+  bottom: 0%;
+  background: #EDCCFE;
+}
+
+.profile {
+  position: absolute;
+  left: 70%;
+  right: 0%;
+  top: 0%;
+  bottom: 0%;
+  
+  background: #CFA8FF;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
