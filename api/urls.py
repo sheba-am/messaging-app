@@ -6,4 +6,5 @@ urlpatterns = [
     path('users/search',  views.searchUsers),
     path('users/friendRequest',  views.friendRequest),
     path('users/friendRequestResponse',  views.friendRequestResponse),
+        path('users/block',  views.blockUser),
 ]

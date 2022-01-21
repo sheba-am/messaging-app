@@ -60,13 +60,15 @@ def friendRequest(request):
     user.save()
     serializer = UserSerializer(user)
     return Response(serializer.data)
-
+ 
 @api_view(['GET'])
 def friendRequestResponse(request):
     data = request.data
     user = User.objects.get(username=data['username'])
     allrequests = user.friendRequests
+    print(allrequests)
     allFriends = user.friends
+    print(allFriends)
     num = int(data['num'])
     if(data['accept'] == 'yes'):
         if(allFriends):
@@ -75,8 +77,29 @@ def friendRequestResponse(request):
             dataFrom = []
             dataFrom.append(allrequests[num])
             user.friends = dataFrom
-        user.save()
+        
     print(allrequests[0])           
-    allrequests.remove(allrequests[num])
+    allrequests.pop(num)
+    user.save()
+    print(allrequests)
     serializer = UserSerializer(user) 
     return Response(serializer.data)
+
+@api_view(['GET'])
+def blockUser(request):
+    data = request.data
+    print(data['username'])
+    user = User.objects.get(username=data['username'])
+    allblocked = user.blocked
+    if(allblocked):
+        allblocked.append(data['block'])
+    else:
+        dataFrom = []
+        dataFrom.append(data['block'])
+        user.blocked = dataFrom
+    if data['block'] in user.friends:
+        user.friends.remove(data['block'])
+    user.save()
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
+
