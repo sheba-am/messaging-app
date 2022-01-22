@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import SendButton from './SendButtonComponent';
 import SendTextBox from './SendTextBoxComponent';
 class ChatRoomChatBox extends Component{
     render(){
