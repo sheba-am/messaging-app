@@ -51,6 +51,140 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background: #EDCCFE;
 }
 
+/*  msg sent by other users*/
+.other-msg{
+  position: absolute;
+  left: 2.74%;
+  right: 30.26%;
+  top: 50%;
+  bottom: 35.19%;
+
+  background: #7B2CBF;
+  border-radius: 25px;
+}
+
+/* my msg */
+.my-msg {
+  position: absolute;
+  left: 29.74%;
+  right: 3.25%;
+  top: 70.31%;
+  bottom: 14.87%;
+
+  background: #C77DFF;
+  border-radius: 25px;
+}
+
+/* chat room header */
+.chat-room-header{
+  position: absolute;
+  height: 114.51px;
+  left: 0%;
+  right: 0%;
+  top: 0px;
+
+  background: #F8E4FF;
+}
+
+/*  chat room profile */
+.chat-room-profile {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  left: 14.77px;
+  top: 14px;
+  border-radius: 50%;
+  background: #C4C4C4;
+}
+
+/* User name */
+.chat-room-username {
+  position: absolute;
+  width: 205.08px;
+  height: 38.43px;
+  left: 138.27px;
+  top: 40.78px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 26px;
+  line-height: 30px;
+  color: #000000;
+}
+
+/* chat box */
+.chat-box {
+  position: absolute;
+  height: 74.53px;
+  left: 0%;
+  right: 0%;
+  bottom: 0px;
+
+  background: #F8E4FF;
+}
+
+/* send */
+.send-button {
+
+position: absolute;
+height: 42.89px;
+left: 85.95%;
+right: 3.27%;
+top: calc(50% - 42.89px/2 - 0.35px);
+
+background: #C597FF;
+border-radius: 25px;
+font-family: Font Awesome 5 Free;
+font-style: normal;
+font-weight: 900;
+font-size: 20px;
+line-height:  42.89px;
+
+color: #F8E4FF;
+}
+
+
+/* send icon */
+.send-icon {
+  position: absolute;
+  height: 22.5px;
+  left: 88.56%;
+  right: 6.86%;
+  top: calc(50% - 22.5px/2 - 4.48px);
+
+  font-family: Font Awesome 5 Free;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 28px;
+  line-height:  42.89px;
+
+  color: #F8E4FF;
+
+}
+
+.msg-box {
+    
+  position: absolute;
+  height: 533px;
+  left: 0%;
+  right: 0%;
+  top: calc(50% - 533px/2);
+}
+.send-text-box {
+  position: absolute;
+  height: 43px;
+  left: 2.35%;
+  right: 15.49%;
+  bottom: 15px;
+
+  background: #E2D8E7;
+  border-radius: 25px;
+}
+
+
+
+
 .profile {
   position: absolute;
   left: 70%;
