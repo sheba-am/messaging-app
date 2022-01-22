@@ -4,7 +4,7 @@ class ChatRoomChatBox extends Component{
     render(){
         return (
             <div>
-                <div className='send-text-box'>
+                <div >
                     <SendTextBox />            
                 </div>
                 <div className='send-button'>

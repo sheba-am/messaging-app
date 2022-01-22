@@ -14,6 +14,26 @@ class ChatRoomMsgBox extends Component{
                         <ChatRoomMessages />
                         
                     </div>
+                    <div className='row'>
+                        <ChatRoomMessages />
+                        
+                    </div>
+                    <div className='row'>
+                        <ChatRoomMessages />
+                        
+                    </div>
+                    <div className='row'>
+                        <ChatRoomMessages />
+                        
+                    </div>
+                    <div className='row'>
+                        <ChatRoomMessages />
+                        
+                    </div>
+                    <div className='row'>
+                        <ChatRoomMessages />
+                        
+                    </div>                                                                                
                 </div>
                 
             </div>

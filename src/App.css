@@ -89,11 +89,14 @@ border-radius: 25px;
 }
 
 .thumbnail-list {
+  max-height: 88%;
   position: absolute;
   top:  72px;
   left: 0%;
   right: 0%;
   color: white;
+  overflow: auto;
+
 
 }
 /* .chat-thumbnail {
@@ -193,6 +196,17 @@ border-radius: 25px;
   background: #C77DFF;
   border-radius: 20px;
 }
+.msg-box {
+    
+  position: absolute;
+  height: 533px;
+  /* max-height: 533px; */
+  left: 0%;
+  right: 0%;
+  top: 115px;
+  overflow: auto;
+  /*top: calc(50% - 533px/2); */
+}
 
 /* chat room header */
 .chat-room-header{
@@ -282,24 +296,17 @@ color: #F8E4FF;
 
 }
 
-.msg-box {
-    
-  position: absolute;
-  height: 533px;
-  left: 0%;
-  right: 0%;
-  top: 115px;
-  /*top: calc(50% - 533px/2); */
-}
-.send-text-box {
+
+div>.send-text-box {
+  width: 80%;
   position: absolute;
   height: 43px;
   left: 2.35%;
-  right: 15.49%;
+  right: 15.49% ; 
   bottom: 15px;
-
   background: #E2D8E7;
-  border-radius: 25px;
+  /* border-radius: 25px; */
+  border-radius: 1rem  ;
 }
 
 

@@ -7,6 +7,12 @@ class ThumbnailList extends Component{
                 <ChatThumbnail />
                 <ChatThumbnail />
                 <ChatThumbnail />
+                <ChatThumbnail />
+                <ChatThumbnail />
+                <ChatThumbnail />
+                <ChatThumbnail />
+                <ChatThumbnail />
+                <ChatThumbnail />                                
             </div>
         );
     }
