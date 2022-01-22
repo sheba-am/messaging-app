@@ -1,0 +1,8 @@
+{{URL}} = http://127.0.0.1:8000
+getUsers(all users) 	{{URL}}/api/users
+getUserByUsername	{{URL}}/api/getUser	QueryDict: {'username': ['Dolores123']}
+registerUser		{{URL}}/api/users/register	QueryDict: {'name': ['Dolores'], 'username': ['Dolores'], 'email': ['Dolores@mail.com'], 'password': ['dolores1234']}
+searchUsers		{{URL}}/api/users/search	QueryDict: {'keyword': ['wood']}
+friendRequest		{{URL}}/api/users/friendRequest	QueryDict: {'from': ['Maddie'], 'to': ['Dolores']}
+friendRequestResponse	{{URL}}/api/users/friendRequestResponse	QueryDict: {'username': ['Dolores'], 'num': ['0'], 'accept': ['no']}
+blockUser		{{URL}}/api/users/block		QueryDict: {'username': ['Dolores123'], 'block': ['John']}

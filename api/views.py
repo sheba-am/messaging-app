@@ -24,6 +24,13 @@ def getUsers(request):
     serializer = UserSerializer(users,many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def getUserById(request):
+    data = request.data
+    user = User.objects.get(username=data['username'])
+    serializer = UserSerializer(user,many=False)
+    return Response(serializer.data)
+
 @api_view(['POST'])
 def registerUser(request):
     try:
@@ -103,3 +110,6 @@ def blockUser(request):
     serializer = UserSerializer(user)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def createGroup(request):
+    pass
