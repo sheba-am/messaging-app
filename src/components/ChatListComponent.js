@@ -6,6 +6,9 @@ class ChatList extends Component{
             <div>
                 <div className='chat-list-header'>
                     <div className='search-box'>
+                        <button className='search-icon'>
+                            ?
+                        </button>
 
                     </div>
                 </div>

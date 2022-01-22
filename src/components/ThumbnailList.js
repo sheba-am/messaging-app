@@ -3,7 +3,9 @@ import ChatThumbnail from './ChatThumbnailComponent';
 class ThumbnailList extends Component{
     render(){
         return (
-            <div>
+            <div className='thumbnail-list'>
+                <ChatThumbnail />
+                <ChatThumbnail />
                 <ChatThumbnail />
             </div>
         );

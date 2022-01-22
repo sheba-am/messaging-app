@@ -9,7 +9,7 @@ class ChatRoom extends Component{
                 <div className='chat-room-header'>
                     <ChatRoomHeader />
                 </div>
-                <div className='msg-box'>
+                <div>
                     <ChatRoomMsgBox />
                 </div>
                 <div className='chat-box'>
