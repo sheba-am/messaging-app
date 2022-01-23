@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{%block content %}
+    <h1 class="title text-center">Login</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if error %}
+            <div class="alert alert-danger">
+                <strong>{{ error }}</strong>
+            </div>
+        {% endif %}
+        
+            <div class="form-group shadow-sm p-3 mb-5 bg-white rounded">
+                {{form.as_p}}
+            </div>
+        
+        <input type="submit" class="btn btn-primary" value="submit">
+    </form>
+{% endblock %}

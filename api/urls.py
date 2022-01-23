@@ -8,4 +8,8 @@ urlpatterns = [
     path('users/friendRequest',  views.friendRequest),
     path('users/friendRequestResponse',  views.friendRequestResponse),
     path('users/block',  views.blockUser),
+
+    #Auth
+    path('logout', views.logoutuser, name='logout'),
+    path('login', views.loginuser, name='login'),
 ]

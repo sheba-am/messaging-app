@@ -1,5 +1,9 @@
 import os
+from django.shortcuts import render
 from requests_cache import CachedSession
+from django.http import HttpResponseRedirect
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 import googleapiclient.discovery
 from rest_framework import generics, permissions
 from .serializers import UserSerializer
@@ -7,6 +11,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from .models import User
+from django.contrib.auth import login, logout, authenticate
 # from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 import requests
@@ -45,6 +50,24 @@ def registerUser(request):
         return Response(serializer.data)
     except IntegrityError as e: 
             return Response("username already registered")
+
+def loginuser(request):
+    if request.method == 'GET':
+        return render(request, '../templates/loginPage.html', {'form':AuthenticationForm()})
+    elif request.method == 'POST':
+        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+        print(user)
+        if user is None:
+                return render(request, '../templates/loginPage.html', {'form':AuthenticationForm(), 'error':'Username and Password do not match'})
+        else:
+            login(request, user)
+            return HttpResponseRedirect('/')
+
+@login_required(login_url='login')
+def logoutuser(request):
+    # if request.method == 'POST':
+    logout(request) 
+    return HttpResponseRedirect('/login')
 
 @api_view(['GET'])
 def searchUsers(request):
