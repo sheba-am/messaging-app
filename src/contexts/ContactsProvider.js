@@ -6,7 +6,7 @@ const ContactsContext = React.createContext()
 export function useContacts() {
   return useContext(ContactsContext)
 }
-//this code is used to create new contacts
+//this code is used to create new contacts 
 export function ContactsProvider({ children }) {
   const [contacts, setContacts] = useLocalStorage('contacts', []) //this is where you save an array of contacts
 // add the new contact to contact list

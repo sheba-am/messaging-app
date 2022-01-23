@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Login from './components/LoginComponent' ;
 import useLocalStorage from "./hooks/useLocalStorage";
-//import { ContactsProvider } from "./components/Contexts/ContactsProvider";
+import { ContactsProvider } from "./contexts/ContactsProvider";
 // class App extends Component {
 //   state = {
 //     isLoggedIn: true,
@@ -38,19 +38,19 @@ function App() {
   const[id,setId] =useLocalStorage('id'); //pass the id value to stay with us
 
 
-// we want our main app to have access to our contacts
-//   const main = (
-//       <ContactsProvider>
+//we want our main app to have access to our contacts
+  const main = (
+      <ContactsProvider>
 
-//           <Main id={id} />
+          <Main id={id} />
 
-//       </ContactsProvider>
+      </ContactsProvider>
 
-//   )
+  )
 
     return (
 
-        id ? <Main id={id} /> :<Login onIdSubmit={setId} />
+        id ? main :<Login onIdSubmit={setId} />
 
     )
 }
