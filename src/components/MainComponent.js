@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ChatList from './ChatListComponent'
+import OpenConversation from './OpenConversation'
+import { useConversations} from '../contexts/ConversationsProvider'
 import ChatRoom from './ChatRoomComponent';
 import Profile from './ProfileComponent' ;
 // class Main extends Component{
@@ -22,11 +24,18 @@ import Profile from './ProfileComponent' ;
 //     }
 // }
 
-// export default Main;
+
 export default function Main({id}) {
+    const {selectedConversation} =useConversations()
+
+
     return(
         <div  className="d-flex" style={{ height: '100vh' }}>
             <ChatList id={id} />
+            
+            {// open conversation if we selected that conversation
+            selectedConversation && <OpenConversation />
+        }
         </div>
     )
 }

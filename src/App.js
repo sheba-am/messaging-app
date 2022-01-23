@@ -42,7 +42,7 @@ function App() {
 //we want our main app to have access to our contacts and conversations
   const main = (
       <ContactsProvider>
-        <ConversationsProvider>
+        <ConversationsProvider id={id}>
           <Main id={id} />
         </ConversationsProvider>
       </ContactsProvider>
