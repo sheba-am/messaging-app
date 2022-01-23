@@ -6,6 +6,7 @@ import './App.css';
 import Login from './components/LoginComponent' ;
 import useLocalStorage from "./hooks/useLocalStorage";
 import { ContactsProvider } from "./contexts/ContactsProvider";
+import { ConversationsProvider} from './contexts/ConversationsProvider';
 // class App extends Component {
 //   state = {
 //     isLoggedIn: true,
@@ -38,12 +39,12 @@ function App() {
   const[id,setId] =useLocalStorage('id'); //pass the id value to stay with us
 
 
-//we want our main app to have access to our contacts
+//we want our main app to have access to our contacts and conversations
   const main = (
       <ContactsProvider>
-
+        <ConversationsProvider>
           <Main id={id} />
-
+        </ConversationsProvider>
       </ContactsProvider>
 
   )
