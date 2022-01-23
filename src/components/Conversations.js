@@ -10,6 +10,7 @@ export default function Conversations() {
       <ListGroup variant="flush">
         {conversations.map((conversation, index) => (
           <ListGroup.Item 
+          className="thumbnail-list"
           key={index}
           action
           onClick ={() => selectConversationIndex(index)}

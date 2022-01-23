@@ -36,6 +36,9 @@ export default function Main({id}) {
             {// open conversation if we selected that conversation
             selectedConversation && <OpenConversation />
         }
+            <Profile />
         </div>
     )
+
+
 }

@@ -41,7 +41,7 @@ export default function ChatListComponent({id}) {
       }
 
   return (
-    <div style={{width: '250px' }} className="d-flex flex-column">
+    <div style={{width: '250px' }} className="d-flex flex-column chat-list">
         <Tab.Container activeKey={activeKey} onSelect={setActiveKey}>
             <Nav variant="tabs" className="justify-content-center">
                 <Nav.Item>
