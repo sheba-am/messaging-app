@@ -7,8 +7,5 @@ class User(AbstractUser):
     friends = models.JSONField(null = True, blank=True)
     friendRequests = models.JSONField(null = True, blank=True)
     blocked = models.JSONField(null = True, blank=True)
-    groups = models.JSONField(null = True, blank=True)
+    chats = models.JSONField(null = True, blank=True)
 
-class Group(models.Model):
-    members = models.JSONField(null = True, blank=True)
-    

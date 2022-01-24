@@ -37,6 +37,7 @@ chatMessageSend.onclick = function() {
     if (chatMessageInput.value.length === 0) return;
     chatSocket.send(JSON.stringify({
         "message": chatMessageInput.value,
+        "username": "dani"
     }));
     chatMessageInput.value = "";
 };
@@ -44,7 +45,7 @@ chatMessageSend.onclick = function() {
 let chatSocket = null;
 
 function connect() {
-    chatSocket = new WebSocket("ws://" + window.location.host + "/ws/chat/private/" + roomName + "/");
+    chatSocket = new WebSocket("ws://" + window.location.host + "/ws/chat/private/" + "dani-admin" + '/');
 
     chatSocket.onopen = function(e) {
         console.log("Successfully connected to the WebSocket.");
@@ -72,10 +73,6 @@ function connect() {
                 }
                 break;
             case "user_join":
-                for (let i = 0; i < data.contents.length; i++) {
-
-                    chatLog.value += data.users[i] + ": " + data.contents[i] + " at " + data.timestamps[i] + "\n";
-                }
                 onlineUsersSelectorAdd(data.user);
                 break;
             case "user_leave":
@@ -87,6 +84,12 @@ function connect() {
                 break;
             case "private_message_delivered":
                 chatLog.value += "PM to " + data.target + ": " + data.message + "\n";
+                break;
+            case "prev_messages":
+                for (let i = 0; i < data.contents.length; i++) {
+
+                    chatLog.value += data.users[i] + ": " + data.contents[i] + " at " + data.timestamps[i] + "\n";
+                }
                 break;
             default:
                 console.error("Unknown message type!");

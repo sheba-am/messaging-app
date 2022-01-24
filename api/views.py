@@ -21,6 +21,7 @@ from rest_framework import status
 import json
 from django.db import IntegrityError
 from django.db.models import Q
+from chat.models import Private
 # Create your views here.
 
 @api_view(['GET'])
@@ -32,7 +33,7 @@ def getUsers(request):
 @api_view(['GET'])
 def getUserById(request):
     data = request.data
-    user = User.objects.get(username=data['username'])
+    user = User.objects.get(username=data['username'].lower())
     serializer = UserSerializer(user,many=False)
     return Response(serializer.data)
 
@@ -41,9 +42,9 @@ def registerUser(request):
     try:
         data = request.data
         user = User.objects.create(
-            first_name=data['name'],
-            username=data['username'],
-            email=data['email'],
+            first_name=data['name'].lower(),
+            username=data['username'].lower(),
+            email=data['email'].lower(),
             password=make_password(data['password'])
         )
         serializer = UserSerializer(user,many=False)
@@ -55,7 +56,7 @@ def loginuser(request):
     if request.method == 'GET':
         return render(request, '../templates/loginPage.html', {'form':AuthenticationForm()})
     elif request.method == 'POST':
-        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+        user = authenticate(request, username=request.POST['username'].lower(), password=request.POST['password'])
         print(user)
         if user is None:
                 return render(request, '../templates/loginPage.html', {'form':AuthenticationForm(), 'error':'Username and Password do not match'})
@@ -69,23 +70,27 @@ def logoutuser(request):
     logout(request) 
     return HttpResponseRedirect('/login')
 
-@api_view(['GET'])
+@api_view(['POST'])
 def searchUsers(request):
     data = request.data
-    users = User.objects.filter(Q(username__contains=data['keyword']) | Q(first_name__contains=data['keyword']))
+    print(data)
+    users = User.objects.filter(Q(username__contains=data['keyword'].lower()) | Q(first_name__contains=data['keyword'].lower()))
     serializer = UserSerializer(users,many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
 def friendRequest(request):
     data = request.data
-    user = User.objects.get(username=data['to'])
+    user = User.objects.get(username=data['to'].lower())
+    if(user.blocked != None and user.blocked != []):
+        if (data['from'] in user.blocked):
+            return Response("You are blocked by this user")
     allrequests = user.friendRequests
     if(allrequests):
-        allrequests.append(data['from'])
+        allrequests.append(data['from'].lower())
     else:
         dataFrom = []
-        dataFrom.append(data['from'])
+        dataFrom.append(data['from'].lower())
         user.friendRequests = dataFrom
     user.save()
     serializer = UserSerializer(user)
@@ -94,23 +99,37 @@ def friendRequest(request):
 @api_view(['GET'])
 def friendRequestResponse(request):
     data = request.data
-    user = User.objects.get(username=data['username'])
+    user = User.objects.get(username=data['username'].lower())
     allrequests = user.friendRequests
-    print(allrequests)
     allFriends = user.friends
-    print(allFriends)
     num = int(data['num'])
-    if(data['accept'] == 'yes'):
+    if(data['accept'].lower() == 'yes'):
+        other_user = User.objects.get(username=allrequests[num].lower())
         if(allFriends):
             allFriends.append(allrequests[num])
+            if(other_user.friends):
+                other_user.friends.append(user.username)
+            else:
+                other_user.friends = [user.username]
         else:
             dataFrom = []
             dataFrom.append(allrequests[num])
             user.friends = dataFrom
+            if(other_user.friends):
+                other_user.friends.append(user.username)
+            else:
+                other_user.friends = [user.username]
+
+        Private.objects.create(
+            name= str(user.username) + str(other_user.username),
+            user1=user,
+            user2=other_user
+        )
         
     print(allrequests[0])           
     allrequests.pop(num)
     user.save()
+    other_user.save()
     print(allrequests)
     serializer = UserSerializer(user) 
     return Response(serializer.data)
@@ -118,17 +137,20 @@ def friendRequestResponse(request):
 @api_view(['GET'])
 def blockUser(request):
     data = request.data
-    print(data['username'])
-    user = User.objects.get(username=data['username'])
+    user = User.objects.get(username=data['username'].lower())
+    other_user = User.objects.get(username=data['block'].lower())
     allblocked = user.blocked
+    #remove chat
+    rooms = Private.objects.filter(user1=user,user2=other_user) | Private.objects.filter(user1=other_user,user2=user)
+    rooms[0].delete()
     if(allblocked):
-        allblocked.append(data['block'])
+        allblocked.append(data['block'].lower())
     else:
         dataFrom = []
-        dataFrom.append(data['block'])
+        dataFrom.append(data['block'].lower())
         user.blocked = dataFrom
     if data['block'] in user.friends:
-        user.friends.remove(data['block'])
+        user.friends.remove(data['block'].lower())
     user.save()
     serializer = UserSerializer(user)
     return Response(serializer.data)

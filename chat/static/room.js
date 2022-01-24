@@ -44,10 +44,12 @@ chatMessageSend.onclick = function() {
 let chatSocket = null;
 
 function connect() {
+    
     chatSocket = new WebSocket("ws://" + window.location.host + "/ws/chat/group/" + roomName + "/");
 
     chatSocket.onopen = function(e) {
         console.log("Successfully connected to the WebSocket.");
+        
     }
 
     chatSocket.onclose = function(e) {
@@ -72,14 +74,10 @@ function connect() {
                 }
                 break;
             case "user_join":
-                for (let i = 0; i < data.contents.length; i++) {
-
-                    chatLog.value += data.users[i] + ": " + data.contents[i] + " at " + data.timestamps[i] + "\n";
-                }
                 onlineUsersSelectorAdd(data.user);
                 break;
             case "user_leave":
-                chatLog.value += data.user + " left the room.\n";
+                // chatLog.value += data.user + " left the room.\n";
                 onlineUsersSelectorRemove(data.user);
                 break;
             case "private_message":
@@ -87,6 +85,12 @@ function connect() {
                 break;
             case "private_message_delivered":
                 chatLog.value += "PM to " + data.target + ": " + data.message + "\n";
+                break;
+            case "prev_messages":
+                for (let i = 0; i < data.contents.length; i++) {
+
+                    chatLog.value += data.users[i] + ": " + data.contents[i] + " at " + data.timestamps[i] + "\n";
+                }
                 break;
             default:
                 console.error("Unknown message type!");
