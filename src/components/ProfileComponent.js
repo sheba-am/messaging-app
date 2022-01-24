@@ -1,6 +1,6 @@
 import React from 'react';
 import { useContacts } from '../contexts/ContactsProvider';
-
+import { Button } from 'react-bootstrap';
 
 export default function ProfileComponent() {
     // const {sendMessage, selectedConversation} = useConversations()
@@ -17,9 +17,13 @@ export default function ProfileComponent() {
           {/* { contacts.length >0 ?console.log(selectedContact): console.log("zero")} */}
           {selectedContact? selectedContact.name :""}
         </div>
-        <div className='delete-button'>
-            Delete
-        </div>
+        {/* <div className='delete-button'>
+            Friend Request
+        </div> */}
+        <Button className='friend-request'>
+          Friend Request
+
+        </Button>
     </div>
   );
 }

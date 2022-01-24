@@ -308,8 +308,7 @@ div>.send-text-box {
   color: #050505;
 }
 
-/* delete button */
-.delete-button {
+.friend-request {
   position: absolute;
   height: 66.98px;
   bottom: 26.02px;
@@ -323,10 +322,7 @@ div>.send-text-box {
   font-style: normal;
   font-weight: normal;
   font-size: 28px;
-  text-align: center;
-  line-height: 35px;
-  text-align: center;
-  line-height: 66.98px;
+
   ;
 }
 /*-----------------------------------------------------------*/
@@ -407,6 +403,17 @@ a:hover {
   cursor: pointer;
 }
 
+.friend-request-accept {
+  position: absolute;
+  bottom: 2%;
+  right: 20%;
+}
+
+.friend-request-deny {
+  position: absolute;
+  bottom: 2%;
+  right: 3%;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -1,25 +1,5 @@
-import React, { Component,useState } from 'react';
-// class ChatList extends Component{
-//     render(){
-//         return (
-//             <div>
-//                 <div className='chat-list-header'>
-//                     <div className='search-box'>
-//                         <button className='search-icon'>
-//                             ?
-//                         </button>
+import React, { useState } from 'react';
 
-//                     </div>
-//                 </div>
-//                 <div>
-//                     <ThumbnailList />
-//                 </div>
-
-//             </div>
-//         );
-//     }
-// }
-// export default ChatList;
 import {Tab,Nav,Button,Modal} from 'react-bootstrap';
 import Conversations from './Conversations';
 import Contacts from './Contacts' ;
@@ -61,8 +41,9 @@ export default function ChatListComponent({id}) {
             <div className="p-2 border-top border-right small">
                 Id <span className="text-muted">{id}</span>
             </div>
-            <Button onClick={() => setModalOpen(true)} className="rounded-0">
-                New {conversationsOpen ? 'Conversation' : 'Contact'}
+            {/* if we are in conversation tab we will see new conversation button else new contact button*/}
+            <Button onClick={() => setModalOpen(true)} className="rounded-0"> 
+                 {conversationsOpen ? 'New Conversation' : 'Friend Requests'}
             </Button>
         </Tab.Container>
         <Modal show={modalOpen} onHide={closeModal}>
