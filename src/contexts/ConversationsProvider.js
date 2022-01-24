@@ -62,12 +62,12 @@ export function ConversationsProvider({ id, children }) {
 
   // we save our msgs like this 
   const formattedConversations = conversations.map( (conversation,index) => {
-        const recipients = conversation.recipients.map( recipient => {
-          const contact = contacts.find( contact => {
-              return contact.id === recipient
-          })
-          const name =(contact && contact.name) || recipient    
-          return {id: recipient, name}
+      const recipients = conversation.recipients.map( recipient => {
+        const contact = contacts.find( contact => {
+            return contact.id === recipient
+        })
+        const name =(contact && contact.name) || recipient    
+        return {id: recipient, name}
       })
 
       

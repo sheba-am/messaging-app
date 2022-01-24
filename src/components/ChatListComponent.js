@@ -1,5 +1,4 @@
 import React, { Component,useState } from 'react';
-import ThumbnailList from './ThumbnailList';
 // class ChatList extends Component{
 //     render(){
 //         return (
