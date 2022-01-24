@@ -4,7 +4,8 @@ import { useContacts } from '../contexts/ContactsProvider';
 
 export default function ProfileComponent() {
     // const {sendMessage, selectedConversation} = useConversations()
-    const {selectContactId, selectedContact} = useContacts()
+    const {selectedContact} = useContacts()
+
   return (
     <div className="d-flex  profile justify-content-center">
         <div className='profile-header'>
@@ -13,9 +14,8 @@ export default function ProfileComponent() {
 
         </div>
         <div className='profile-name'>
-        {console.log(selectContactId)}
-        {        console.log(selectedContact.name)}
-        {selectedContact.name}
+          {/* { contacts.length >0 ?console.log(selectedContact): console.log("zero")} */}
+          {selectedContact? selectedContact.name :""}
         </div>
         <div className='delete-button'>
             Delete
@@ -23,4 +23,3 @@ export default function ProfileComponent() {
     </div>
   );
 }
-

@@ -37,8 +37,9 @@ export function ContactsProvider({ children }) {
   const value={ 
       contacts: formattedContacts,
       createContact,
-      selectContactId: setSelectedContactId, //this is not what it looks like and idk why :(
-      selectedContact: formattedContacts[selectedContactId-1] //getting the selected contact
+      selectContactId: setSelectedContactId, 
+      selectedContact: contacts.find(e => e.id=== selectedContactId)
+      // selectedContact: selectedContactId //getting the selected contact
 
   }
   return (
