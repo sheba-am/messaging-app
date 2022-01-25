@@ -414,6 +414,18 @@ a:hover {
   bottom: 2%;
   right: 3%;
 }
+.send-friend-request {
+  position: absolute;
+  bottom: 2%;
+  right: 33%;
+}
+
+.block-user {
+  position: absolute;
+  bottom: 2%;
+  right: 20%;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -1,26 +1,43 @@
+import { Button, ListGroup } from 'react-bootstrap'
 
-   
 import React, { useState } from "react";
 import {search} from 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios'
 //import "./SearchBar.css";
 //import SearchIcon from "@material-ui/icons/Search";
 //import CloseIcon from "@material-ui/icons/Close";
+const config = {
+  headers: {
+      'Content-type': 'application/json',
+  }
+}
+const SendFriendRequest= (username, myId) => {
+  console.log('my id: '+ myId)
+  console.log('send friend req '+ username)
+  // QueryDict: {'from': ['Maddie'], 'to': ['Dolores']}
+  const result = axios.post(
+    'http://127.0.0.1:8000/api/users/friendRequest',
+    {'from': myId, 'to': username}
+    , config
+  ).then((response) => response)
+  .then((response) => {
+    console.log(response.data)
+  })
+}
 
-function SearchBar({ placeholder, data }) {
+
+
+const blockUser= (username) => {
+  console.log('block '+username)
+}
+
+function SearchBar({ placeholder, data ,id}) {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
   const [users, setUsers] = useState([]);
   
-  const config = {
-    headers: {
-        'Content-type': 'application/json',
-    }
-  }
-  const getResults = async () => {
-    
-    
-  }
+
+
   const handleFilter = (event) => {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
@@ -67,15 +84,22 @@ function SearchBar({ placeholder, data }) {
       </div>
       <div className="bi-search search-icon"></div>
       {filteredData.length != 0 && (
-        <div className="dataResult">
+        <ListGroup className="dataResult">
           {filteredData.slice(0, 15).map((value, key) => {
             return (
-              <a className="dataItem" href={value.link} target="_blank">
-                <p>{value.username} </p>
-              </a>
+            
+                <ListGroup.Item>
+                  {value.username} 
+                  <button type="button"  onClick={()=>SendFriendRequest(value.username, id)} className='btn btn-success send-friend-request'> 
+                  +
+                    </button>
+                  <button type="button" onClick={()=>blockUser(value.username)} className='btn btn-danger  block-user'>
+                    -
+                  </button>
+                </ListGroup.Item>
             );
           })}
-        </div>
+        </ListGroup>
       )}
     </div>
   );

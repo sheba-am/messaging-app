@@ -35,7 +35,7 @@ export default function ChatListComponent({id}) {
                     <Conversations />
                 </Tab.Pane>
                 <Tab.Pane eventKey={CONTACT_KEY}>                   
-                    <Contacts />
+                    <Contacts id={id} />
                 </Tab.Pane>                
             </Tab.Content>
             <div className="p-2 border-top border-right small">

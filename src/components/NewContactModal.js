@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Modal, Form, Button, ListGroup, ListGroupItem } from 'react-bootstrap'
+import { Modal, Form, Button, ListGroup } from 'react-bootstrap'
 import {useContacts} from '../contexts/ContactsProvider'
 export default function NewContactModal({ closeModal }) {
   const idRef = useRef()
