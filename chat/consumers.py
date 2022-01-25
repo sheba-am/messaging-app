@@ -21,7 +21,7 @@ class ChatConsumer(WebsocketConsumer):
         names = data.split("-")
         self.room_name = names[1]
         self.room_group_name = f'chat_{self.room_name}'
-        self.room = Room.objects.get(name=self.room_name)
+        self.room = Room.objects.get_or_create(name=self.room_name)[0]
         self.user = User.objects.filter(username=names[0])[0]
         # print("here")
         self.user_inbox = f'inbox_{self.user.username}'
@@ -51,7 +51,7 @@ class ChatConsumer(WebsocketConsumer):
         # send the user list to the newly joined user
         self.send(json.dumps({
             'type': 'user_list',
-            'users': [user.username for user in self.room.online.all()],
+            'users': [user.username for user in self.room.members.all()],
         }))
         #remove authentication
         if True:
@@ -65,7 +65,7 @@ class ChatConsumer(WebsocketConsumer):
             timestamps = []
             count = 0
             for item in Message.objects.all():
-                if count == 20:
+                if count == 100:
                     break
                 if(item.room.name == self.room_name):
                     contents.append(item.content)
@@ -73,7 +73,6 @@ class ChatConsumer(WebsocketConsumer):
                     timestamps.append(str(item.timestamp))
                 count += 1
             # send the join event to the room
-            print(contents)
             async_to_sync(self.channel_layer.group_send)(
                 self.room_group_name,
                 {
@@ -81,8 +80,8 @@ class ChatConsumer(WebsocketConsumer):
                     'user': self.user.username,
                 }
             )
-            if(self.user not in self.room.online):
-                self.room.online.add(self.user)
+            if(self.user not in self.room.members.all()):
+                self.room.members.add(self.user)
             #send the messages in chat to new user
             target = self.user.username
             async_to_sync(self.channel_layer.group_send)(
@@ -124,7 +123,7 @@ class ChatConsumer(WebsocketConsumer):
 
     def receive(self, text_data=None, bytes_data=None):
         text_data_json = json.loads(text_data)
-        print(text_data_json)
+        # print(text_data_json)
         message = text_data_json['message'] 
         # if not self.user.is_authenticated:
         #     return
@@ -200,10 +199,10 @@ class PrivateConsumer(WebsocketConsumer):
         scopeName = self.scope['url_route']['kwargs']['room_name']
         # print("scope")
         # print(self.scope['headers'])
-        print(self.room_name)
+        # print(self.room_name)
         names = scopeName.split("-")
         self.user = User.objects.filter(username=names[0])[0]
-        print(User.objects.filter(username=names[0]))
+        # print(User.objects.filter(username=names[0]))
         user1 = self.user
         user2 = User.objects.filter(username=names[1])[0]
         # print("room_name")
@@ -246,10 +245,10 @@ class PrivateConsumer(WebsocketConsumer):
             timestamps = []
             count = 0
             for item in PrivateMessage.objects.all():
-                if count == 20:
+                if count == 100:
                     break
-                print("room_name: " + self.room_name)
-                print("item_room: " + item.room.name)
+                # print("room_name: " + self.room_name)
+                # print("item_room: " + item.room.name)
                 if(item.room.name == self.room_name):
                     contents.append(item.content)
                     users.append(item.user.username)
@@ -257,7 +256,7 @@ class PrivateConsumer(WebsocketConsumer):
                 count += 1
             # print(contents)
             # send the join event to the room
-            print(contents)
+            # print(contents)
             async_to_sync(self.channel_layer.group_send)(
                 self.room_group_name,
                 {
@@ -268,8 +267,8 @@ class PrivateConsumer(WebsocketConsumer):
             # self.room.online.add(self.user)
             # print(self.user.username)
             target = self.user.username
-            print("target")
-            print(target)
+            # print("target")
+            # print(target)
             async_to_sync(self.channel_layer.group_send)(
                 f'inbox_{target}',
                 {
@@ -309,7 +308,6 @@ class PrivateConsumer(WebsocketConsumer):
     def receive(self, text_data=None, bytes_data=None):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
-        username = text_data_json['username'] 
         # if not self.user.is_authenticated:
         #     return
         if message.startswith('/pm '):
@@ -339,10 +337,11 @@ class PrivateConsumer(WebsocketConsumer):
             self.room_group_name,
             {
                 'type': 'chat_message',
-                'user': username,
+                'user': self.user.username,
                 'message': message,
             }
         )
+        # print("message is: " + message)
         PrivateMessage.objects.create(user=self.user, room=self.room, content=message)
 
     def chat_message(self, event):

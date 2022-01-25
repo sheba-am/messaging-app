@@ -4,21 +4,21 @@ from django.db import models
 
 class Room(models.Model):
     name = models.CharField(max_length=128)
-    online = models.ManyToManyField(to=User, blank=True)
+    members = models.ManyToManyField(to=User, blank=True)
 
-    def get_online_count(self):
-        return self.online.count()
+    def get_memeber_count(self):
+        return self.members.count()
 
     def join(self, user):
-        self.online.add(user)
+        self.members.add(user)
         self.save()
 
     def leave(self, user):
-        self.online.remove(user)
+        self.members.remove(user)
         self.save()
 
     def __str__(self):
-        return f'{self.name} ({self.get_online_count()})'
+        return f'{self.name} ({self.get_memeber_count()})'
 
 class Private(models.Model):
     name = models.CharField(max_length=128)

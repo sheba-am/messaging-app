@@ -13,9 +13,9 @@ def index_view(request):
 # @api_view(['GET'])
 # @login_required(login_url='http://127.0.0.1:8000/api/login')
 def room_view(request, room_name):
-
-    print(request.user)
-    chat_room, created = Room.objects.get_or_create(name=room_name)
+    names = room_name.split('-')
+    room = names[1]
+    chat_room, created = Room.objects.get_or_create(name=names[1])[0]
     return render(request, 'room.html', {
         'room': chat_room,
     })
