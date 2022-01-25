@@ -1,24 +1,45 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { useConversations } from '../contexts/ConversationsProvider';
-
+import { SelectContext } from '../App';
 
 export default function Conversations() {
-  const {conversations, selectConversationIndex} = useConversations()
+  const [selecting, setSelecting] =useContext(SelectContext)
+  // const {conversations, selectConversationIndex} = useConversations()
+  let friends = []
+  let groups = []
+  
+  if(localStorage.getItem('user') != undefined){
+    friends = JSON.parse(localStorage.getItem('user'))['friends']
+    groups = JSON.parse(localStorage.getItem('user'))['chats']
+   }
   return (
     <div>
-      <ListGroup variant="flush">
-        {conversations.map((conversation, index) => (
+
+      <ListGroup variant="flush" >
+        {friends?  friends.map(contact => (
           <ListGroup.Item 
-          className="thumbnail-list"
-          key={index}
-          action
-          onClick ={() => selectConversationIndex(index)}
-          active ={conversation.selected}
-          >
-            {conversation.recipients.map(r => r.name).join(', ')}
+            key={contact} 
+            className="thumbnail-list"
+            onClick ={()=>setSelecting(contact)} 
+            active ={contact === selecting}
+            >
+
+            {contact}
           </ListGroup.Item>
-        ))}
+        )) :<div></div> }
+        </ListGroup>
+        <ListGroup variant="flush" >
+        {groups? groups.map(contact => (
+          <ListGroup.Item 
+            key={contact} 
+            className="thumbnail-list"
+            onClick ={()=>setSelecting(contact)} 
+            active ={contact === selecting}
+            >
+            {contact}
+          </ListGroup.Item>
+        )) :<div></div> }
       </ListGroup>
     </div>);
 }

@@ -46,6 +46,7 @@ export default function ChatListComponent({id}) {
                  {conversationsOpen ? 'New Conversation' : 'Friend Requests'}
             </Button>
         </Tab.Container>
+        <Button onClick={() => localStorage.clear()}>Logout</Button>
         <Modal show={modalOpen} onHide={closeModal}>
             {conversationsOpen ?
             <NewConversationModal closeModal={closeModal} /> :

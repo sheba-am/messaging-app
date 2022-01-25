@@ -12,7 +12,7 @@ const config = {
   }
 }
 const SendFriendRequest= (username, myId) => {
-  console.log('my id: '+ myId)
+  myId = JSON.parse(localStorage.getItem('user'))['username']
   console.log('send friend req '+ username)
   // QueryDict: {'from': ['Maddie'], 'to': ['Dolores']}
   const result = axios.post(
@@ -21,14 +21,28 @@ const SendFriendRequest= (username, myId) => {
     , config
   ).then((response) => response)
   .then((response) => {
-    console.log(response.data)
+    console.log(response)
+    if(response.data === "You are blocked by this user"){
+      window.alert(response.data)
+    }
   })
 }
 
 
 
 const blockUser= (username) => {
-  console.log('block '+username)
+  const myId = JSON.parse(localStorage.getItem('user'))['username']
+  console.log('send friend req '+ username)
+  // QueryDict: {'from': ['Maddie'], 'to': ['Dolores']}
+  const result = axios.post(
+    'http://127.0.0.1:8000/api/users/block',
+    {'username': myId, 'block': username}
+    , config
+  ).then((response) => response)
+  .then((response) => {
+    localStorage.setItem("user", JSON.stringify(response.data))
+    console.log(response.data)
+  })
 }
 
 function SearchBar({ placeholder, data ,id}) {
@@ -48,7 +62,7 @@ function SearchBar({ placeholder, data ,id}) {
       , config
     ).then((response) => response)
     .then((response) => {
-      console.log(response.data[0].username)
+      // console.log(response.data[0].username)
       setFilteredData(response.data)
     })
     console.log("users are:")
