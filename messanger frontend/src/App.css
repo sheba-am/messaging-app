@@ -1,0 +1,449 @@
+div {
+  word-wrap: break-word;
+}
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+.chat-list {
+/* chat list */
+/* 
+position: absolute;
+left: 0%;
+right: 70%;
+top: 0%;
+bottom: 0%; */
+background: #10002B;
+/* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+
+}
+
+
+
+
+
+/* chat list header */
+.chat-list-header {
+  position: absolute;
+  height: 74px;
+  left: 0%;
+  right: 0%;
+  top: 0px;
+
+  background: #CFA8FF;
+}
+/* search box */
+.search-box {
+position: absolute;
+height: 49.22px;
+left: 3.49%;
+right: 5.02%;
+top: 9.84px;
+
+background: #E2D8E7;
+border-radius: 25px;
+}
+
+.thumbnail-header {
+  background-color: #3C096C; ;
+  color: white;
+  box-sizing: border-box;
+  padding-top: 15px;
+  height: 60px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.thumbnail-list {
+  background-color: #10002B ;
+  color: white;
+  padding-top: 15px;
+  border: 1.5px solid #E5E5E5;
+  box-sizing: border-box;
+  height: 60px;
+}
+
+
+.thumbnail-list:hover {
+  background: #3C096C;
+}
+/* user profile */
+.chat-list-profile {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  /* left: calc(50% - 70px/2 - 122.62px); */
+  margin-top: 2%;
+  left: 2%;
+  border-radius: 50%;
+  background: #C4C4C4;
+}
+
+/* User name */
+.chat-list-username {
+
+  position: absolute;
+  left: 10%;
+  right: 5%;
+  margin-top: 5%;
+  margin-bottom: 5%;  
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 35px;
+  
+  color: #FFFFFF;
+
+}
+/*  -------------------------------------------------------------------*/
+.chat-room {
+
+  /* position: absolute;
+  left: 30%;
+  right: 30%;
+  top: 0%;
+  bottom: 0%; */
+  background: #EDCCFE;
+}
+
+/* .other-msg{
+  left: 2.74%;
+  right: 30.26%;
+  top: 50%;
+  bottom: 35.19%; 
+  height: 20px;
+  background: #7B2CBF;
+  border-radius: 25px;
+} */
+/* message sent by other users */
+div>div>div>div> .other-msg {
+
+  background: #7B2CBF;
+  border-radius: 20px ;
+}
+/* my msg */
+div>div>div>div> .my-msg {
+
+  background: #C77DFF;
+  border-radius: 20px ;
+}
+
+.msg-box {
+    
+  position: absolute;
+  height: 533px;
+  /* max-height: 533px; */
+  left: 0%;
+  right: 0%;
+  top: 115px;
+  overflow: auto;
+  /*top: calc(50% - 533px/2); */
+}
+
+/* chat room header */
+.chat-room-header{
+  position: absolute;
+  height: 114.51px;
+  left: 0%;
+  right: 0%;
+  top: 0px;
+
+  background: #F8E4FF;
+}
+
+/*  chat room profile */
+.chat-room-profile {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  left: 14.77px;
+  top: 14px;
+  border-radius: 50%;
+  background: #C4C4C4;
+}
+
+/* User name */
+.chat-room-username {
+  position: absolute;
+  width: 205.08px;
+  height: 38.43px;
+  left: 138.27px;
+  top: 40.78px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 26px;
+  line-height: 30px;
+  color: #000000;
+}
+.complete-chat {
+  width: 100%;
+  height: 600px;
+  background: #EDCCFE;
+  resize: none;
+
+}
+/* chat box */
+.chat-box {
+  position: absolute;
+  height: 74.53px;
+  left: 0%;
+  right: 0%;
+  bottom: 0px;
+
+  background: #F8E4FF;
+}
+
+/* send */
+.send-button {
+
+position: absolute;
+height: 42.89px;
+left: 85.95%;
+right: 3.27%;
+top: calc(50% - 42.89px/2 - 0.35px);
+
+background: #C597FF;
+border-radius: 25px;
+font-family: Font Awesome 5 Free;
+font-style: normal;
+font-weight: 900;
+font-size: 20px;
+line-height:  42.89px;
+
+color: #F8E4FF;
+}
+
+
+/* send icon */
+.send-icon {
+  position: absolute;
+  height: 22.5px;
+  left: 88.56%;
+  right: 6.86%;
+  top: calc(50% - 22.5px/2 - 4.48px);
+
+  font-family: Font Awesome 5 Free;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 28px;
+  line-height:  42.89px;
+
+  color: #F8E4FF;
+
+}
+
+
+div>.send-text-box {
+  width: 80%;
+  position: absolute;
+  height: 43px;
+  left: 2.35%;
+  right: 15.49% ; 
+  bottom: 15px;
+  background: #E2D8E7;
+  /* border-radius: 25px; */
+  border-radius: 1rem  ;
+}
+
+
+
+/* -------------------------------------------------*/
+.profile {
+  left: 70%;
+  right: 0%;
+  top: 0%;
+  bottom: 0%;
+  
+  background: #E4B6FF;
+}
+
+/* profile header */
+.profile-header {
+  height: 196px;
+  left: -0.03%;
+  right: -0.72%;
+  top: 0px;
+  width: 250px;
+  background: #CFA8FF;
+}
+
+/* Big profile picture */
+.big-profile-picture {
+  position: absolute;
+  width: 175px;
+  height: 175px;
+  top: 15%;
+  border-radius: 50%;
+  background: #C4C4C4;
+}
+
+/* Name */
+.profile-name {
+  position: absolute;
+  /* width: 218px;
+  height: 38px;
+  right: 1%; */
+  top: 322px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 35px;
+  text-align: center;
+
+  color: #050505;
+}
+
+.friend-request {
+  position: absolute;
+  height: 66.98px;
+  bottom: 26.02px;
+  width: 200px;
+  
+  background: #10002B;
+  border-radius: 25px;
+
+  color: white;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 28px;
+
+  ;
+}
+/*-----------------------------------------------------------*/
+.searchInputs {
+  /* margin-top: 105px; */
+  display: flex;
+}
+
+.search input {
+  background-color: #E2D8E7;
+  border: 0;
+  border-radius: 25px;
+  font-size: 18px;
+  margin-top: 5px;
+  padding: 15px;
+  height: 30px;
+}
+
+/* search icon */
+.search-icon {
+  border: none;
+  text-decoration: none;
+  position:absolute;
+  width: 24.05px;
+  height: 24.61px;
+  top: 50px;
+  left: 200px;
+  font-family: Font Awesome 5 Free;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 20px;
+
+  color: #CFA8FF;
+}
+
+input:focus {
+  outline: none;
+}
+.searchIcon svg {
+  font-size: 35px;
+}
+
+.dataResult {
+  margin-top: 5px;
+  width: 300px;
+  height: 200px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.dataResult::-webkit-scrollbar {
+  display: none;
+}
+
+.dataResult .dataItem {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  color: black;
+}
+
+.dataItem p {
+  margin-left: 10px;
+}
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  background-color: lightgrey;
+}
+
+#clearBtn {
+  cursor: pointer;
+}
+
+.friend-request-accept {
+  position: absolute;
+  bottom: 2%;
+  right: 20%;
+}
+
+.friend-request-deny {
+  position: absolute;
+  bottom: 2%;
+  right: 3%;
+}
+.send-friend-request {
+  position: absolute;
+  bottom: 2%;
+  right: 33%;
+}
+
+.block-user {
+  position: absolute;
+  bottom: 2%;
+  right: 20%;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
