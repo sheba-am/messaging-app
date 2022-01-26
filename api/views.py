@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 import googleapiclient.discovery
 from rest_framework import generics, permissions
-from .serializers import UserSerializer
+from .serializers import UserSerializer, GroupSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
@@ -21,7 +21,7 @@ from rest_framework import status
 import json
 from django.db import IntegrityError
 from django.db.models import Q
-from chat.models import Private
+from chat.models import Private, Room
 # Create your views here.
 
 @api_view(['GET'])
@@ -29,12 +29,20 @@ def getUsers(request):
     users = User.objects.all()
     serializer = UserSerializer(users,many=True)
     return Response(serializer.data)
-
+#by username
 @api_view(['POST'])
 def getUserById(request):
     data = request.data
     print(data)
     user = User.objects.get(username=data['username'].lower())
+    serializer = UserSerializer(user,many=False)
+    return Response(serializer.data)
+#by id
+@api_view(['POST'])
+def getUserById(request):
+    data = request.data
+    print(data)
+    user = User.objects.get(id=data['id'].lower())
     serializer = UserSerializer(user,many=False)
     return Response(serializer.data)
 
@@ -80,6 +88,32 @@ def searchUsers(request):
     users = User.objects.filter(Q(username__contains=data['keyword'].lower()) | Q(first_name__contains=data['keyword'].lower()))
     serializer = UserSerializer(users,many=True)
     return Response(serializer.data)
+
+@api_view(['POST'])
+def createGroup(request):
+    data = request.data
+    print("request is:")
+    print(data)
+    chat_room, created = Room.objects.get_or_create(name=data['name'])
+    user = User.objects.filter(username=data['username'])[0]
+    user.chats.append(data['name'])
+    user.save()
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def getGroup(request):
+    data = request.data
+    print(data)
+    chat_room = None
+    names = []
+    chat_room = Room.objects.get(name=data['name'])
+    dictData = {'name': chat_room.name}
+    for item in chat_room.members.all():
+        names.append(item.username)
+    dictData['members'] = names
+    return Response(dictData)
+
 
 @api_view(['POST'])
 def friendRequest(request):
@@ -167,6 +201,3 @@ def blockUser(request):
     serializer = UserSerializer(user)
     return Response(serializer.data)
 
-@api_view(['GET'])
-def createGroup(request):
-    pass

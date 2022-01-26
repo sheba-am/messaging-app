@@ -204,11 +204,15 @@ class PrivateConsumer(WebsocketConsumer):
         self.user = User.objects.filter(username=names[0])[0]
         # print(User.objects.filter(username=names[0]))
         user1 = self.user
+        print("username" + names[1])
+        print("len" + str(User.objects.filter(username=names[1])))
         user2 = User.objects.filter(username=names[1])[0]
         # print("room_name")
         # print(self.room_name)
         self.room_group_name = f'chat_{self.room_name}'
         getRoom = Private.objects.filter(user1=user1,user2=user2) | Private.objects.filter(user1=user2,user2=user1)
+        if(not getRoom):
+            return
         self.room = getRoom[0]
         self.room_name = self.room.name
         self.user_inbox = f'inbox_{self.user.username}'

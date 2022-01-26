@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import User
+from chat.models import Room
+from django.db import models
 # from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -29,3 +31,10 @@ class UserSerializerWithToken(UserSerializer):
     def get_token(self, obj):
         token = RefreshToken.for_user(obj)
         return str(token.access_token)
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    names = models.JSONField(null = True, blank=True)
+    class Meta:
+        model = Room
+        fields = ['name', 'names']
