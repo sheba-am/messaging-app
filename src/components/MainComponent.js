@@ -1,27 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import ChatList from './ChatListComponent'
 import OpenConversation from './OpenConversation'
 import { useConversations} from '../contexts/ConversationsProvider'
 import Profile from './ProfileComponent' ;
-// class Main extends Component{
-//     render(){
-//         <p>hello</p>
-//         return (
-//             <div >
-//                 <div className='chat-list'>
-//                     <ChatList />
-//                 </div>
-//                 <div className='chat-room'>
-//                     <ChatRoom />
-//                 </div>
-//                 <div className='profile'>
-//                     <Profile />
-//                 </div>
-//             </div>
 
-//         );
-//     }
-// }
 const geteSelected = () => {
     let show =localStorage.getItem('selecting')
     console.log(show)
@@ -29,14 +11,14 @@ const geteSelected = () => {
 
 export default function Main({id}) {
     const {selectedConversation} =useConversations()
-
+    const [groups, setGroups] = useState("")
 
     return(
         <div  className="d-flex" style={{ height: '100vh' }}>
-            <ChatList id={id} />
+            <ChatList id={id} setGroups={setGroups}/>
             
             {// open conversation if we selected that conversation
-            <OpenConversation id={id}/>
+            <OpenConversation groups={groups}/>
         }
             <Profile />
         </div>

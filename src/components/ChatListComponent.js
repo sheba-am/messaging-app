@@ -10,11 +10,10 @@ const CONTACT_KEY = 'contacts';
 
 
 
-export default function ChatListComponent({id}) {
+export default function ChatListComponent({id, setGroups}) {
     const [activeKey, setActiveKey] = useState(CONVERSATIONS_KEY)
     const conversationsOpen = activeKey === CONVERSATIONS_KEY
     const [modalOpen, setModalOpen] = useState(false)
-  
     function closeModal() {
         setModalOpen(false)
       }
@@ -32,7 +31,7 @@ export default function ChatListComponent({id}) {
             </Nav>
             <Tab.Content className="border-right overflow-auto flex-grow-1">
                 <Tab.Pane eventKey={CONVERSATIONS_KEY}>                   
-                    <Conversations />
+                    <Conversations setGroups={setGroups}/>
                 </Tab.Pane>
                 <Tab.Pane eventKey={CONTACT_KEY}>                   
                     <Contacts id={id} />
@@ -43,7 +42,7 @@ export default function ChatListComponent({id}) {
             </div>
             {/* if we are in conversation tab we will see new conversation button else new contact button*/}
             <Button onClick={() => setModalOpen(true)} className="rounded-0"> 
-                 {conversationsOpen ? 'New Conversation' : 'Friend Requests'}
+                 {conversationsOpen ? 'New Group' : 'Friend Requests'}
             </Button>
         </Tab.Container>
         <Button onClick={() => localStorage.clear()}>Logout</Button>

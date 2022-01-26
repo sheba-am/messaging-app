@@ -1,6 +1,5 @@
 import React , { useContext} from 'react';
-import { useContacts } from '../contexts/ContactsProvider';
-import { Button } from 'react-bootstrap';
+
 import { SelectContext } from '../App';
 
 export default function ProfileComponent() {
@@ -20,7 +19,6 @@ export default function ProfileComponent() {
         </div>
         <div className='profile-name'>
         {selecting}
-
           {/* { contacts.length >0 ?console.log(selectedContact): console.log("zero")} */}
           {/* {selectedContact? selectedContact.name :""} */}
         </div>

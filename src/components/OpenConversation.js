@@ -1,24 +1,54 @@
 import React, {useState, useCallback, useRef, useEffect, useContext} from 'react';
-import { Form,InputGroup,Button } from 'react-bootstrap';
+import { Form,InputGroup,Button, ListGroup, Text } from 'react-bootstrap';
 import { useConversations } from '../contexts/ConversationsProvider';
+import axios from 'axios'
 import { SelectContext } from '../App';
 
-export default function OpenConversation({id}) {
-
-    const [selecting, setSelecting] =useContext(SelectContext)
-    console.log(selecting)
+export default function OpenConversation({groups}) {
+  const [selecting, setSelecting] =useContext(SelectContext)
   let chatSocket = null;
   const chatRef = useRef()
-  console.log(chatRef)
-  let chatLog = document.querySelector("#chatLog");
-  console.log("chatLog: " + chatLog)
+  const messRef = useRef()
+  let groupData = null
+  
+//   if(localStorage.getItem("group")){
+//     groupData = JSON.parse(localStorage.getItem("group"))
+//     console.log(groupData.members)
+//   }
+   
+  // console.log(chatRef)
+
+  // let chatLog = document.querySelector("#chatLog");
+  // console.log("chatLog: " + chatLog)
 
   function connect(chatLog) {
-    let roomName = id+'-'+selecting
-    //let roomName = 'admin-dani'
+    // console.log(window.location.pathname);
+    // let temp = window.location.pathname
+    // let other_user = temp.slice(1)
+    // console.log("other_user"+ other_user)
+    if(localStorage.getItem("group")){
+        groupData = JSON.parse(localStorage.getItem("group"))
+      }
+       
+    // groupData = JSON.parse()
+    let roomName = []
+    if(localStorage.getItem('user')){
+      roomName = JSON.parse(localStorage.getItem('user'))['username'] + "-" + selecting
+    }else{
+      return
+    }
+    if(roomName.includes("undefined") || roomName.endsWith("-")){
 
-    chatSocket = new WebSocket("ws://" + "127.0.0.1:8000" + "/ws/chat/private/" + roomName + "/");
-    console.log(chatSocket)
+    }else{
+      if(localStorage.getItem("chatType")==="group"){
+        chatSocket = new WebSocket("ws://" + "127.0.0.1:8000" + "/ws/chat/group/" + roomName + "/");
+      }else if (localStorage.getItem("chatType")==="friend"){
+        chatSocket = new WebSocket("ws://" + "127.0.0.1:8000" + "/ws/chat/private/" + roomName + "/");
+      }
+    if(!chatSocket){
+        return
+    }
+    // console.log(chatSocket)
     chatSocket.onopen = function(e) {
         console.log("Successfully connected to the WebSocket.");
         
@@ -59,6 +89,7 @@ export default function OpenConversation({id}) {
                 chatLog.value += "PM to " + data.target + ": " + data.message + "\n";
                 break;
             case "prev_messages":
+                chatLog.value = ""
                 for (let i = 0; i < data.contents.length; i++) {
 
                     chatLog.value += data.users[i] + ": " + data.contents[i] + " at " + data.timestamps[i] + "\n";
@@ -74,21 +105,23 @@ export default function OpenConversation({id}) {
     };
 
     chatSocket.onerror = function(err) {
-        console.log("WebSocket encountered an error: " + err.message);
-        console.log("Closing the socket.");
+        // console.log("WebSocket encountered an error: " + err.message);
+        // console.log("Closing the socket.");
         chatSocket.close();
     }
-}
-
-useEffect(() => {
-  // Update the document title using the browser API
-  console.log("useEffect")
-  console.log(chatRef)
-
-  if(selecting !== 'notyet'){
-    connect(chatRef.current)
-    
   }
+}
+connect();
+let item = null
+let members = null
+window.addEventListener('storage', () => {
+  // When local storage changes, dump the list to
+  // the console.
+   console.log(JSON.parse(localStorage.getItem('selecting')))   
+});
+useEffect(() => {
+  item = localStorage.getItem['selecting']
+  connect(chatRef.current)
 });
 
 
@@ -111,37 +144,29 @@ const  clickHandle = ()  => {
     function handleSubmit(e) {
         e.preventDefault()
         console.log("running")
+        console.log(messRef)
         chatSocket.send(JSON.stringify({
-            "message": "test",
+            "message": messRef.current.value,
         }));
     }
-    
+    function getData(){
+      console.log("selecting is:" + localStorage.getItem['selecting'])
+    }
+    const chatType = localStorage.getItem("chatType")
 
   return (
     <div className="d-flex flex-column flex-grow-1 chat-room">
-      <div className="flex-grow-1 overflow-auto">
-        <div className="d-flex flex-column align-items-start justify-content-end px-3">
-        <textarea ref={chatRef} value="one" className="complete-chat">text</textarea>
-          {/* {selectedConversation.messages.map((message, index) => {
-            const lastMessage = selectedConversation.messages.length -1 ===index
-            return (
-              <div
-                ref = {lastMessage ? setRef : null }
-                key= {index}
-                className={`my-1 d-flex flex-column ${message.fromMe ? 'align-self-end align-items-end' : 'align-items-start'}`}
-              >
-                <div
-                  className={` px-2 py-1 ${message.fromMe ? 'my-msg text-white' : 'other-msg text-white border'}`}>
-                  {message.text}
-                </div>
-                <div className={`text-muted small ${message.fromMe ? 'text-right' : ''}`}>
-                  {message.fromMe ? 'You' : message.senderName}
-                </div>
-              </div>
-            )
-          })} */}
-        </div>
-    </div>
+
+        <Form.Control as="textarea" ref={chatRef} className="complete-chat"/>
+        <ListGroup variant="flush" >
+        {groups && chatType=='group'?  groupData.members.map(contact => (
+            <ListGroup.Item 
+            >
+            {contact}
+          </ListGroup.Item>
+        )) :<div></div> }
+        </ListGroup>
+
 
 
 
@@ -151,13 +176,14 @@ const  clickHandle = ()  => {
                     <Form.Control 
                         as="textarea" 
                         required 
+                        ref={messRef}
                         // value={text} 
                         // onChange={e => setText(e.target.value)}
                         style={{height: '75px', resize:'none' }}
 
                     />  
                     <Button 
-                    onClick={clickHandle} 
+                    // onClick={clickHandle} 
                     type="submit">Send</Button>
                 </InputGroup>
             </Form.Group>

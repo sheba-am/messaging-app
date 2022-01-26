@@ -1,7 +1,6 @@
 import React from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { useContacts } from '../contexts/ContactsProvider';
-import BookData from '../data/Data.json'
 import SearchBar from './SearchBar';
 export default function Contacts() {
   const {contacts, selectContactId} =useContacts()
@@ -14,7 +13,7 @@ export default function Contacts() {
 //we get the list of my contacts from contacts provider and show them here
   return (
     <div>
-      <SearchBar placeholder="Search..." data={BookData} />
+      <SearchBar placeholder="Search..."  />
 
       <ListGroup variant="flush" >
         {friends? friends.map(contact => (
@@ -22,7 +21,6 @@ export default function Contacts() {
             key={contact} 
             className="thumbnail-list"
             onClick ={() => selectContactId(contact)}
-            active ={contact}
             >
 
             {contact}
